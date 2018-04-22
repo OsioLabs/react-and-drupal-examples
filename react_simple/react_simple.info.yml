@@ -1,0 +1,5 @@
+name: React — Simple Hello World
+type: theme
+description: 'A theme that loads React javascript libraries, and a React application.'
+core: 8.x
+base theme: classy

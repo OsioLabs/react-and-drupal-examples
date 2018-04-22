@@ -1,0 +1,19 @@
+react:
+  version: 1.x
+  header: true
+  js:
+    https://unpkg.com/react@16/umd/react.production.min.js: { external: true, minified: true }
+    https://unpkg.com/react-dom@16/umd/react-dom.production.min.js: { external: true, minified: true }
+    https://unpkg.com/babel-standalone@6.15.0/babel.min.js: { external: true, minified: true }
+react-app:
+  version: 1.0.0
+  footer: true
+  js:
+    # Example 1
+    js/index.js: { preprocess: 0, attributes: { type: text/babel } }
+    # Example 2
+    # js/Welcome.js: { preprocess: 0, attributes: { type: text/babel } }
+    # Example 3
+    #js/ToggleButton.js: { preprocess: 0, attributes: { type: text/babel } }
+    # Example 4
+    # js/NodeList.js: { preprocess: 0, attributes: { type: text/babel } }

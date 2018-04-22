@@ -1,0 +1,8 @@
+create-react-app:
+  version: 1.0.1
+  footer: true
+  js:
+    app/build/static/js/main.js: { preprocess: 0 }
+  css:
+    theme:
+      app/build/static/css/main.css: {}
