@@ -5,6 +5,7 @@ react:
     https://unpkg.com/react@16/umd/react.production.min.js: { external: true, minified: true }
     https://unpkg.com/react-dom@16/umd/react-dom.production.min.js: { external: true, minified: true }
     https://unpkg.com/babel-standalone@6.15.0/babel.min.js: { external: true, minified: true }
+    js/libraries/typed.min.js: { external: false, minified: true }
 react-app:
   version: 1.0.0
   footer: true

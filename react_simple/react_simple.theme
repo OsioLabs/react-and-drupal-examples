@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the React theme.
+ */
+
+ /**
+  * Implements hook_preprocess_HOOK() for HTML document templates.
+  * Add a twig variable that inserts markup needed to bind to the React application.
+  */
+function react_simple_preprocess_node(&$variables) {
+  $node = \Drupal::request()->attributes->get('node');
+  $variables['node_title'] = $node->getTitle();
+}

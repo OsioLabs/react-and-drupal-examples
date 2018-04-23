@@ -13,31 +13,9 @@
 {{ attach_library('react_simple/react-app') }}
 
 <article{{ attributes.addClass(classes) }}>
-
-  {{ title_prefix }}
-  {% if not page %}
-    <h2{{ title_attributes }}>
-      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-    </h2>
-  {% endif %}
-  {{ title_suffix }}
-
-  {% if display_submitted %}
-    <footer class="node__meta">
-      {{ author_picture }}
-      <div{{ author_attributes.addClass('node__submitted') }}>
-        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-        {{ metadata }}
-      </div>
-    </footer>
-  {% endif %}
-
   <div{{ content_attributes.addClass('node__content') }}>
-    <div id="react-app">
-      React app will load here.
+    <div id="react-app" data-title="{{ node_title }}">
+      {{ content }}
     </div>
-    <hr />
-    Node content appears here
-    {{ content }}
   </div>
 </article>
