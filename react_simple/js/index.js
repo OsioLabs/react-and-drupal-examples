@@ -38,18 +38,17 @@ class ShowNodeContent extends React.Component {
       <div>
           <div>
             <div
-              onClick={this.buttonDisable}
               style={style.active}
             >
               Hide content
             </div>
-            <div style={style.content}>
-              {this.props.content}
-            </div>
+            <div
+              style={style.content}
+              dangerouslySetInnerHTML={{__html: this.props.content }}
+            />
           </div>
 
           <div
-            onClick={this.buttonActivate}
             style={style.inactive}
           >
             Show more
@@ -65,7 +64,7 @@ class NodeContent extends React.Component {
     return (
       <div>
         <h1>{this.props.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
+        <ShowNodeContent {...this.props} />
       </div>
     );
   }
