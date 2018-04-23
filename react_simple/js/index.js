@@ -19,10 +19,7 @@ class NodeList extends React.Component {
     this.state = { data: null };
     this.loadNodeData = this.loadNodeData.bind(this);
     this.updateData = this.updateData.bind(this);
-  }
-
-  componentWillMount() {
-    this.loadNodeData();
+    this.checkInvalidData = this.checkInvalidData.bind(this);
   }
 
   componentWillMount() {
@@ -30,11 +27,23 @@ class NodeList extends React.Component {
   }
 
   loadNodeData() {
-    console.log('load node data');
+    const API_ROOT = 'http://localhost:8888/rd/jsonapi/';
+    const url = `${API_ROOT}node/article`;
+
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then((data) => this.updateData(data))
+      .catch(err => console.log('API got an error', err))
   }
 
-  updateData() {
-    console.log('update node data');
+  updateData(responseData) {
+    console.log(responseData);
+    const validatedData = this.checkInvalidData(responseData);
+    if (validatedData) {
+      this.setState( { data: responseData.data }, () => console.log(this.state));
+    }
   }
 
   checkInvalidData(data) {
@@ -50,21 +59,6 @@ class NodeList extends React.Component {
   }
 
   render() {
-    const style = {
-      nodeItem: {
-        border: '2px solid black',
-        margin: '10px',
-        padding: '10px',
-        backgroundColor: '#ccc',
-      },
-      nodeItemActive: {
-        border: '2px solid black',
-        margin: '10px',
-        padding: '10px',
-        backgroundColor: '#fff',
-      }
-    };
-
     return (
       <div>
         <h2>Site content</h2>
