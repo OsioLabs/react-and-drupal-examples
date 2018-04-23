@@ -59,11 +59,35 @@ class NodeList extends React.Component {
   }
 
   render() {
+    const style = {
+      nodeItem: {
+        border: '2px solid black',
+        margin: '10px',
+        padding: '10px',
+        backgroundColor: '#ccc',
+      },
+      nodeItemActive: {
+        border: '2px solid black',
+        margin: '10px',
+        padding: '10px',
+        backgroundColor: '#fff',
+      }
+    };
+
     return (
       <div>
         <h2>Site content</h2>
+
         {this.state.data !== null ?
-          this.state.data.map(item => <NodeItem {...item} />)
+          this.state.data.map(item => {
+            let className = 'nodeItem';
+            let current = false;
+            if (Number(this.props.nid) === Number(item.attributes.nid)) {
+              className = 'nodeItemActive';
+              current = true;
+            }
+            return (<div style={style[className]}> <NodeItem current={current} {...item} /> </div>);
+          } )
           :
           <NoData />
         }
