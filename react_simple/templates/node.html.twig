@@ -14,10 +14,10 @@
 
 <article{{ attributes.addClass(classes) }}>
   <div{{ content_attributes.addClass('node__content') }}>
-    <div id="react-app" data-title="{{ node_title }}">
+    <div id="react-app">
     </div>
-    <div id="react-content" class="invisible">
-    {{ content }}
+    <div id="react-content" class="invisible" data-title="{{ node_title }}">
+      {{ content }}
     </div>
   </div>
 </article>
