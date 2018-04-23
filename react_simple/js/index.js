@@ -128,20 +128,13 @@ class NodeContent extends React.Component {
   }
   // Output
   render() {
-    var style = {
-      // color: '#fff',
-      // backgroundColor: '#ddd',
-    };
     // View data in console.
     // console.log(this.props.children);
     return (
-      <div
-        style={style}
-      >
+      <div>
         <h1>{this.props.title}</h1>
         <ShowNodeContent content={this.props.content}>
           <h2>{this.state.example}</h2>
-          {/* Raw markup */}
           {/* Put node content in a div & render it as HTML */}
           <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
         </ShowNodeContent>
@@ -151,6 +144,6 @@ class NodeContent extends React.Component {
 }
 
 ReactDOM.render(
-  <NodeContent title={document.getElementById('react-app').getAttribute("data-title")} content={document.getElementById('react-app').textContent} />,
+  <NodeContent title={document.getElementById('react-app').getAttribute("data-title")} content={document.getElementById('react-content').textContent} />,
   document.getElementById('react-app')
 );
