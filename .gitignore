@@ -3,3 +3,4 @@ js/dist/*
 node_modules
 node_modules/*
 content-filter
+.DS_Store

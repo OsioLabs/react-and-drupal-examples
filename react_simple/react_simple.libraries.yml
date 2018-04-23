@@ -9,11 +9,4 @@ react-app:
   version: 1.0.0
   footer: true
   js:
-    # Example 1
     js/index.js: { preprocess: 0, attributes: { type: text/babel } }
-    # Example 2
-    # js/Welcome.js: { preprocess: 0, attributes: { type: text/babel } }
-    # Example 3
-    #js/ToggleButton.js: { preprocess: 0, attributes: { type: text/babel } }
-    # Example 4
-    # js/NodeList.js: { preprocess: 0, attributes: { type: text/babel } }
