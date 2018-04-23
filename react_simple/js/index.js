@@ -104,6 +104,8 @@ class NodeList extends React.Component {
 }
 
 ReactDOM.render(
-  <NodeList title={document.getElementById('react-app').getAttribute("data-title")} nid={document.getElementById('react-app').getAttribute('data-nid')} />,
+  <NodeList
+    nid={document.getElementById('react-app').getAttribute('data-nid')}
+  />,
   document.getElementById('react-app')
 );
