@@ -86,16 +86,10 @@ class NodeContent extends React.Component {
   }
   // Output
   render() {
-    var style = {
-      // color: '#fff',
-      // backgroundColor: '#ddd',
-    };
     // View data in console.
     // console.log(this.props.children);
     return (
-      <div
-        style={style}
-      >
+      <div>
         <h1>{this.props.title}</h1>
         <ShowNodeContent content={this.props.content}>
           <h2>{this.state.example}</h2>
