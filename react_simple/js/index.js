@@ -3,53 +3,11 @@ class ShowNodeContent extends React.Component {
     super();
     this.state = {
       status: 0,
-      typeEffectContent: null,
     };
     this.buttonActivate = this.buttonActivate.bind(this);
     this.buttonDisable = this.buttonDisable.bind(this);
   }
-  componentDidMount() {
-    let { content } = this.props;
-    if (content !== undefined &&
-      content !== null) {
-      var lines = [];
-      var maxLineLength = 100;
-      var words = content.split(" ");
-      var currentLine = words[0];
-      var lineLength = currentLine.length;
-      for (var i = 1; i < words.length; i++) {
-          var word = words[i];
-          lineLength += word.length + 1;
-          if (word !== "") {
-            if (lineLength <= maxLineLength) {
-              currentLine += " " + word;
-            } else {
-              lines.push(currentLine);
-              currentLine = word;
-              lineLength = word.length;
-            }
-          }
-        }
-        lines.push(currentLine);
-        this.setState({typeEffectContent: lines });
-    }
-  }
 
-  componentDidUpdate() {
-    if (this.state.status === 1 &&
-        this.state.typeEffectContent !== null) {
-        // https://mattboldt.com/demos/typed-js/
-        // https://github.com/mattboldt/typed.js/blob/master/README.md
-        // Full docs: https://mattboldt.com/typed.js/docs/
-        var typed = new Typed('#typed', {
-          strings: this.state.typeEffectContent,
-          typeSpeed: 0,
-          backSpeed: 0,
-          fadeOut: true,
-          loop: false
-        });
-    }
-  }
   buttonActivate() {
     this.setState({status: 1});
   }
@@ -101,7 +59,7 @@ class ShowNodeContent extends React.Component {
               Hide content
             </div>
             <div style={style.content}>
-              <div id="typed" />
+              {this.props.content}
             </div>
           </div>
         }
@@ -151,6 +109,6 @@ class NodeContent extends React.Component {
 }
 
 ReactDOM.render(
-  <NodeContent title={document.getElementById('react-app').getAttribute("data-title")} content={document.getElementById('react-app').textContent} />,
+  <NodeContent title={document.getElementById('react-app').getAttribute("data-title")} content={document.getElementById('react-content').textContent} />,
   document.getElementById('react-app')
 );
