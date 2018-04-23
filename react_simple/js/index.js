@@ -55,8 +55,11 @@ class NodeList extends React.Component {
     return (
       <div>
         <h2>Site content</h2>
-        <NodeItem />
-        <NoData />
+        {this.state.data !== null ?
+          this.state.data.map(item => <NodeItem {...item} />)
+          :
+          <NoData />
+        }
       </div>
     );
   }
