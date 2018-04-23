@@ -1,7 +1,0 @@
-name: React - Create React App
-type: theme
-description: 'A theme that loads React javascript libraries, and a React application.'
-core: 8.x
-base theme: classy
-libraries:
-  - react_create_react_app/create-react-app
