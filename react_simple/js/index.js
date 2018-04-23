@@ -13,6 +13,29 @@ class NoData extends React.Component {
 }
 
 class NodeList extends React.Component {
+  constructor() {
+    super();
+    this.state = { data: null };
+    this.loadNodeData = this.loadNodeData.bind(this);
+    this.updateData = this.updateData.bind(this);
+  }
+
+  componentWillMount() {
+    this.loadNodeData();
+  }
+
+  componentWillMount() {
+    this.loadNodeData();
+  }
+
+  loadNodeData() {
+    console.log('load node data');
+  }
+
+  updateData() {
+    console.log('update node data');
+  }
+
   render() {
     const style = {
       nodeItem: {
