@@ -51,25 +51,28 @@ class ShowNodeContent extends React.Component {
 
     return (
       <div>
+        {this.state.status === 1 &&
           <div>
-            <div
+            <button
               onClick={this.hideContent}
               style={style.inactive}
             >
               Hide content
-            </div>
+            </button>
             <div
               style={style.content}
               dangerouslySetInnerHTML={{__html: this.props.content }}
             />
           </div>
-
-          <div
+        }
+        {this.state.status === 0 &&
+          <button
             onClick={this.showContent}
             style={style.active}
           >
             Show more
-          </div>
+          </button>
+        }
       </div>
     );
   }
