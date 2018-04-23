@@ -1,7 +1,8 @@
 class NodeItem extends React.Component {
   render() {
     return <div>
-      Node Item
+      <h2>{this.props.attributes.title}</h2>
+      <div dangerouslySetInnerHTML={{__html: this.props.attributes.body.value}} />
     </div>;
   }
 }
@@ -34,6 +35,18 @@ class NodeList extends React.Component {
 
   updateData() {
     console.log('update node data');
+  }
+
+  checkInvalidData(data) {
+    if (data === null) {
+      return false;
+    }
+    if (data.data === undefined ||
+        data.data === null ||
+        data.data.length === 0 ) {
+      return false;
+    }
+    return true;
   }
 
   render() {
