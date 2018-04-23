@@ -1,4 +1,19 @@
 class ShowNodeContent extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      status: 0,
+    };
+    this.showContent = this.showContent.bind(this);
+    this.hideContent = this.hideContent.bind(this);
+  }
+
+  showContent() {
+    this.setState({status: 1});
+  }
+  hideContent() {
+    this.setState({status: 0});
+  }
 
   render() {
     var style = {
@@ -38,7 +53,8 @@ class ShowNodeContent extends React.Component {
       <div>
           <div>
             <div
-              style={style.active}
+              onClick={this.hideContent}
+              style={style.inactive}
             >
               Hide content
             </div>
@@ -49,7 +65,8 @@ class ShowNodeContent extends React.Component {
           </div>
 
           <div
-            style={style.inactive}
+            onClick={this.showContent}
+            style={style.active}
           >
             Show more
           </div>
