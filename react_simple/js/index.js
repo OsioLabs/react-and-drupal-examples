@@ -4,14 +4,14 @@ class ShowNodeContent extends React.Component {
     this.state = {
       status: 0,
     };
-    this.buttonActivate = this.buttonActivate.bind(this);
-    this.buttonDisable = this.buttonDisable.bind(this);
+    this.showContent = this.showContent.bind(this);
+    this.hideContent = this.hideContent.bind(this);
   }
 
-  buttonActivate() {
+  showContent() {
     this.setState({status: 1});
   }
-  buttonDisable() {
+  hideContent() {
     this.setState({status: 0});
   }
   render() {
@@ -53,8 +53,8 @@ class ShowNodeContent extends React.Component {
         {this.state.status === 1 &&
           <div>
             <div
-              onClick={this.buttonDisable}
-              style={style.active}
+              onClick={this.hideContent}
+              style={style.inactive}
             >
               Hide content
             </div>
@@ -65,8 +65,8 @@ class ShowNodeContent extends React.Component {
         }
         {this.state.status === 0 &&
           <div
-            onClick={this.buttonActivate}
-            style={style.inactive}
+            onClick={this.showContent}
+            style={style.active}
           >
             Show more
           </div>
