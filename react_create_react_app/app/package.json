@@ -1,6 +1,7 @@
 {
   "name": "app",
   "version": "0.1.0",
+  "homepage": "https://localhost:8888/rd/themes/react_create_react_app/app/build",
   "private": true,
   "dependencies": {
     "autoprefixer": "7.1.6",
