@@ -35,13 +35,12 @@ class App extends Component {
 
   // GET
   loadNodeData() {
-    this.fetchJsonApiGet('data', `${JSONAPI_ROOT}node/article`);
+    this.fetchJsonApiGet('data', `${JSONAPI_ROOT}node/article`, true);
   }
 
-  updateData(destination, responseData, validate) {
-    console.log("update data");
+  updateData(destination, responseData, validate = true) {
     const validatedData = this.checkInvalidData(responseData, validate);
-    if (validatedData) {
+    if (validatedData || validate === false) {
       this.setState( { [destination]: responseData }, () => console.log(this.state));
     }
   }
@@ -61,12 +60,12 @@ class App extends Component {
     return true;
   }
 
-  fetchJsonApiGet(destination, url) {
+  fetchJsonApiGet(destination, url, validate) {
     fetch(url)
       .then(function(response) {
         return response.json();
       })
-      .then((data) => this.updateData(destination, data))
+      .then((data) => this.updateData(destination, data, validate))
       .catch(err => console.log('API error:', err));
   }
 
@@ -135,8 +134,7 @@ class App extends Component {
       return response;
     })
     .then((data) => {
-      console.log('data');
-      this.loadNodeData();
+      this.fetchJsonApiGet('data', `${JSONAPI_ROOT}node/article`, false);
     })
     .catch(err => console.log('API error:', err));
   }
