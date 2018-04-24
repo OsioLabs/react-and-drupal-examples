@@ -71,11 +71,9 @@ export default class NodeEdit extends React.Component {
           type="textarea"
           rows="10"
           cols="30"
-          // value={this.state.input.body}
           ref={(input) => this.input = input}
           placeholder={this.state.placeholder.body}
           style={styles.formItem}
-          // onChange={(e) => this.handleChange(e, 'body')}
         />
 
         <br />

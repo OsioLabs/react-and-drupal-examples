@@ -5,7 +5,6 @@ import NodeItem from './../NodeItem/NodeItem';
 class NodeList extends React.Component {
   render() {
     let { data, patchNode, deleteNode } = this.props;
-    console.log('node list', data);
     return (
         <div>
           {data !== null &&

@@ -15,7 +15,6 @@ class App extends Component {
     super();
     this.state = {
       data: null,
-      encodedAuthentication: config.encodedAuthentication,
     };
     this.loadNodeData = this.loadNodeData.bind(this);
     this.postNode = this.postNode.bind(this);
@@ -34,10 +33,12 @@ class App extends Component {
   }
 
   // GET
+  // Get list of node content & store in this.state.data
   loadNodeData() {
     this.fetchJsonApiGet('data', `${JSONAPI_ROOT}node/article`, true);
   }
 
+  // Update the data object in state, optionally validating.
   updateData(destination, responseData, validate = true) {
     const validatedData = this.checkInvalidData(responseData, validate);
     if (validatedData || validate === false) {
@@ -45,14 +46,14 @@ class App extends Component {
     }
   }
 
+  // Check that the data response is in the format we expect.
   checkInvalidData(data, validate = true) {
     if (validate) {
       if (data === null) {
         return false;
       }
       if (data.data === undefined ||
-          data.data === null ||
-          data.data.length === 0 ) {
+          data.data === null ) {
         return false;
       }
       return true;
@@ -60,39 +61,14 @@ class App extends Component {
     return true;
   }
 
-  fetchJsonApiGet(destination, url, validate) {
+  // Perform GET request. If successful, update state.
+  fetchJsonApiGet(destination, url) {
     fetch(url)
       .then(function(response) {
         return response.json();
       })
-      .then((data) => this.updateData(destination, data, validate))
+      .then((data) => this.updateData(destination, data))
       .catch(err => console.log('API error:', err));
-  }
-
-  patchNode(id, data) {
-    if (id !== undefined &&
-        id !== null &&
-        data !== undefined &&
-        data !== null) {
-      this.fetchJsonApiPatch('patch', `${JSONAPI_ROOT}node/article/${id}`, data);
-    }
-  }
-
-  // PATCH
-  fetchJsonApiPatch(destination, url, update) {
-    fetch(url, {
-      method: 'PATCH',
-      headers,
-      body: JSON.stringify(update)
-    })
-    .then(function(response) {
-      return response.json();
-    })
-    .then((data) => {
-      this.updateData(destination, data, false);
-      this.loadNodeData();
-    })
-    .catch(err => console.log('API error:', err));
   }
 
   // POST
@@ -116,6 +92,33 @@ class App extends Component {
     .catch(err => console.log('API error:', err));
   }
 
+  // PATCH
+  patchNode(id, data) {
+    if (id !== undefined &&
+        id !== null &&
+        data !== undefined &&
+        data !== null) {
+      this.fetchJsonApiPatch('patch', `${JSONAPI_ROOT}node/article/${id}`, data);
+    }
+  }
+
+  fetchJsonApiPatch(destination, url, update) {
+    fetch(url, {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify(update)
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then((data) => {
+      this.updateData(destination, data, false);
+      this.loadNodeData();
+    })
+    .catch(err => console.log('API error:', err));
+  }
+
+
   // DELETE
   deleteNode(id) {
     if (id !== undefined && id !== null) {
@@ -134,7 +137,7 @@ class App extends Component {
       return response;
     })
     .then((data) => {
-      this.fetchJsonApiGet('data', `${JSONAPI_ROOT}node/article`, false);
+      this.fetchJsonApiGet('data', `${JSONAPI_ROOT}node/article`);
     })
     .catch(err => console.log('API error:', err));
   }
