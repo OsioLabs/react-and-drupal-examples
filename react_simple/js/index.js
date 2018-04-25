@@ -6,7 +6,8 @@ const JSONAPI_ROOT = `${config.base}/jsonapi/`;
 const headers = new Headers({
   'Accept': 'application/vnd.api+json',
   'Content-Type': 'application/vnd.api+json',
-  'Authorization': `Basic ${config.encodedAuthentication}`
+  'Cache': 'no-cache'
+  // 'Authorization': `Basic ${config.encodedAuthentication}`
 });
 
 class App extends React.Component {
@@ -78,6 +79,7 @@ class App extends React.Component {
   fetchJsonApiPost(destination, url, postData) {
     fetch(url, {
       method: 'POST',
+      credentials: 'same-origin',
       headers,
       body: JSON.stringify(postData)
     })
@@ -104,6 +106,7 @@ class App extends React.Component {
   fetchJsonApiPatch(destination, url, update) {
     fetch(url, {
       method: 'PATCH',
+      credentials: 'same-origin',
       headers,
       body: JSON.stringify(update)
     })
@@ -128,6 +131,7 @@ class App extends React.Component {
   fetchJsonApiDelete(destination, url) {
     fetch(url, {
       method: 'DELETE',
+      credentials: 'same-origin',
       headers
     })
     .then(function(response) {
