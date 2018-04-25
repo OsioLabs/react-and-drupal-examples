@@ -1,13 +1,11 @@
 const config = {
   base: 'http://localhost:8888/rd',
-  encodedAuthentication: 'YXBwOm15cGFzc3dvcmQ=',
 };
 const JSONAPI_ROOT = `${config.base}/jsonapi/`;
 const headers = new Headers({
   'Accept': 'application/vnd.api+json',
   'Content-Type': 'application/vnd.api+json',
   'Cache': 'no-cache'
-  // 'Authorization': `Basic ${config.encodedAuthentication}`
 });
 
 class App extends React.Component {
