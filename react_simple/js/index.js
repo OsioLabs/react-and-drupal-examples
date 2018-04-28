@@ -118,7 +118,6 @@ class App extends React.Component {
     .catch(err => console.log('API error:', err));
   }
 
-
   // DELETE
   deleteNode(id) {
     if (id !== undefined && id !== null) {
@@ -146,11 +145,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <hr />
+        <h2>All Articles</h2>
         <NodeList
           data={this.state.data}
           patchNode={this.patchNode}
           deleteNode={this.deleteNode}
         />
+        <hr />
         <NodeNew postNode={this.postNode} />
       </div>
     );
