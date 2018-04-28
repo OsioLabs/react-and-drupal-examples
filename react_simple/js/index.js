@@ -190,19 +190,34 @@ class NodeDelete extends React.Component {
   }
 
   render() {
+    let style = {
+      panel: {
+        margin: '30px',
+        padding: '30px',
+        backgroundColor: '#EEE',
+      },
+      inactive: {
+        color: '#DDD',
+      }
+    };
     return (
       <div>
-        {this.state.confirm === true &&
-          <div>
-            <div>Delete this Node?</div><br />
-            <button onClick={() => this.deleteNode(this.props.id)}>Yes</button>
-            <button onClick={() => this.cancelDelete()}>No</button>
-          </div>
-        }
         {this.state.confirm === false &&
           <button onClick={() => this.showConfirm()}>
             Delete
           </button>
+        }
+        {this.state.confirm === true &&
+          <button style={style.inactive}>
+            Delete
+          </button>
+        }
+        {this.state.confirm === true &&
+          <div style={style.panel}>
+            <div>Delete this Node?</div><br />
+            <button onClick={() => this.deleteNode(this.props.id)}>Yes</button>
+            <button onClick={() => this.cancelDelete()}>No</button>
+          </div>
         }
       </div>
     );
@@ -215,7 +230,6 @@ class NodeEdit extends React.Component {
     this.state = {
       input: {
         title: '',
-        // body: '',
       },
       placeholder: {
         title: props.title,
@@ -231,7 +245,7 @@ class NodeEdit extends React.Component {
     let data = {
         "data": {
           "id": this.props.id,
-          "type": "node--page", // Not in documentation but required.
+          "type": "node--article", // Not in documentation but required.
           "attributes": {
             "title": `${this.state.input.title}`,
             "body": {
@@ -277,8 +291,9 @@ class NodeEdit extends React.Component {
         {/* https://reactjs.org/docs/uncontrolled-components.html */}
         <textarea
           name="body"
+          id="patch-body"
           type="textarea"
-          rows="10"
+          rows="4"
           cols="30"
           ref={(input) => this.input = input}
           placeholder={this.state.placeholder.body}
@@ -322,29 +337,39 @@ class NodeItem extends React.Component {
   }
 
   render() {
+    let style = {
+      content: {
+        margin: '30px',
+      },
+      buttons: {
+        margin: '30px',
+      }
+    };
     return (
       <div id={this.props.id}>
-
-        <h2>{this.props.attributes.title}</h2>
-        <div dangerouslySetInnerHTML={{__html: this.props.attributes.body.value}} />
-
-        {this.state.showEdit === false &&
-          <div>
-            <button onClick={(e) => this.showEdit(e)}>
-              Edit
-            </button>
-          </div>
-        }
-        {this.state.showEdit === true &&
-          <div>
-            <NodeEdit {...this.props} cancelEdit={this.cancelEdit} />
-            <button onClick={() => this.cancelEdit()}>
-              View
-            </button>
-          </div>
-        }
-
-        <NodeDelete {...this.props} />
+        <div style={style.content}>
+          <h2>{this.props.attributes.title}</h2>
+          <div dangerouslySetInnerHTML={{__html: this.props.attributes.body.value}} />
+        </div>
+        <hr />
+        <div style={style.buttons}>
+          {this.state.showEdit === false &&
+            <div>
+              <button onClick={(e) => this.showEdit(e)}>
+                Edit
+              </button>
+            </div>
+          }
+          {this.state.showEdit === true &&
+            <div>
+              <NodeEdit {...this.props} title={this.props.attributes.title} body={this.props.attributes.body.value} cancelEdit={this.cancelEdit} />
+              <button onClick={() => this.cancelEdit()}>
+                View
+              </button>
+            </div>
+          }
+          <NodeDelete {...this.props} />
+        </div>
       </div>
     );
   }
@@ -380,11 +405,10 @@ class NodeNew extends React.Component {
     this.state = {
       input: {
         title: '',
-        // body: '',
       },
       placeholder: {
-        title: 'Default Title',
-        body: 'Default Body',
+        title: 'Title',
+        body: 'Body',
       }
     };
     this.postNode = this.postNode.bind(this);
@@ -395,7 +419,7 @@ class NodeNew extends React.Component {
   postNode() {
     let data = {
       "data": {
-        "type": "node--page", // Not in documentation but required.
+        "type": "node--article", // Not in documentation but required.
         "attributes": {
           "title": `${this.state.input.title}`,
           "body": {
@@ -405,7 +429,7 @@ class NodeNew extends React.Component {
         }
       }
     };
-    console.log(data);
+    // console.log(data);
     this.props.postNode(data);
   }
 
@@ -416,6 +440,9 @@ class NodeNew extends React.Component {
   handleSubmit(event) {
     this.postNode();
     event.preventDefault();
+    // Clear out form.
+    this.setState({input: { title: ''}});
+    document.getElementById('post-body').value = "";
   }
 
   render() {
@@ -429,6 +456,7 @@ class NodeNew extends React.Component {
     }
     return (
       <form style={styles.form} onSubmit={this.handleSubmit}>
+        <h3>Add a new article</h3>
         {/* https://reactjs.org/docs/forms.html#controlled-components */}
         <input
           name="title"
@@ -441,15 +469,15 @@ class NodeNew extends React.Component {
         <br />
         {/* https://reactjs.org/docs/uncontrolled-components.html */}
         <textarea
+          id="post-body"
           name="body"
           type="textarea"
-          rows="10"
+          rows="4"
           cols="30"
           ref={(input) => this.input = input}
           placeholder={this.state.placeholder.body}
           style={styles.formItem}
         />
-
         <br />
         <input
           name="submit"
