@@ -1,5 +1,5 @@
 const config = {
-  base: 'http://localhost:8888/rd',
+  base: 'http://localhost/demos/react-tutorials/web',
 };
 const JSONAPI_ROOT = `${config.base}/jsonapi/`;
 const headers = new Headers({
@@ -229,12 +229,9 @@ class NodeEdit extends React.Component {
     super();
     this.state = {
       input: {
-        title: '',
-      },
-      placeholder: {
         title: props.title,
         body: props.body,
-      }
+      },
     };
     this.patchNode = this.patchNode.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -283,7 +280,6 @@ class NodeEdit extends React.Component {
           name="title"
           type="text"
           value={this.state.input.title}
-          placeholder={this.state.placeholder.title}
           onChange={(e) => this.handleChange(e, 'title')}
           style={styles.formItem}
         />
@@ -296,7 +292,7 @@ class NodeEdit extends React.Component {
           rows="4"
           cols="30"
           ref={(input) => this.input = input}
-          placeholder={this.state.placeholder.body}
+          value={this.state.input.body}
           style={styles.formItem}
         />
 
@@ -406,10 +402,6 @@ class NodeNew extends React.Component {
       input: {
         title: '',
       },
-      placeholder: {
-        title: 'Title',
-        body: 'Body',
-      }
     };
     this.postNode = this.postNode.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -462,7 +454,7 @@ class NodeNew extends React.Component {
           name="title"
           type="text"
           value={this.state.input.title}
-          placeholder={this.state.placeholder.title}
+          placeholder="Title"
           onChange={(e) => this.handleChange(e, 'title')}
           style={styles.formItem}
         />
@@ -475,7 +467,7 @@ class NodeNew extends React.Component {
           rows="4"
           cols="30"
           ref={(input) => this.input = input}
-          placeholder={this.state.placeholder.body}
+          placeholder="Body"
           style={styles.formItem}
         />
         <br />
