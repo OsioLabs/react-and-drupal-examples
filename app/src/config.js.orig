@@ -1,0 +1,18 @@
+export default {
+  base: 'http://localhost/demos/react-tutorials/web',
+  oauth: {
+    grant_type: 'password',
+<<<<<<< HEAD
+    client_id: '0485fbc2-6ce3-4e34-9ffe-df7833c0476c',  // YOUR CLIENT ID
+    client_secret: 'app', // YOUR CLIENT SECRET
+    username: 'app', // USERNAME
+    password: 'app', // PASSWORD
+=======
+    client_id: '945f3551-7c1f-4f73-ad20-ed2eea851088',  // YOUR CLIENT ID
+    client_secret: 'drupalize', // YOUR CLIENT SECRET
+    username: 'admin', // USERNAME
+    password: 'admin', // PASSWORD
+>>>>>>> 2c34d4a... Updates to get login working.
+    scope: 'oauth' // USER ROLE
+  }
+};
