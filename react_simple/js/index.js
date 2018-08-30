@@ -1,7 +1,10 @@
 const config = {
   base: 'http://localhost/demos/react-tutorials/web',
+  base: 'http://react-demos.lan',
 };
+
 const JSONAPI_ROOT = `${config.base}/jsonapi/`;
+
 const headers = new Headers({
   'Accept': 'application/vnd.api+json',
   'Content-Type': 'application/vnd.api+json',
@@ -59,6 +62,22 @@ class App extends React.Component {
     return true;
   }
 
+  // Helper function wraps a normal fetch call with a fetch request that first
+  // retrieves a CSRF token and then adds the token as an X-CSRF-Token header
+  // to the options for desired fetch call.
+  //
+  // Use this in place of fetch() for any write/update operations like POST,
+  // PATCH, and DELETE.
+  fetchWithCSRFToken(url, options) {
+    return fetch(`${config.base}/session/token?_format=json`)
+      .then(response => response.text())
+      .then((csrfToken) => {
+        options.headers.append('X-CSRF-Token', csrfToken);
+        return fetch(url, options);
+      })
+      .catch(err => console.log('Unable to obtain CSRF token:', err));
+  }
+
   // Perform GET request. If successful, update state.
   fetchJsonApiGet(destination, url) {
     fetch(url)
@@ -75,7 +94,7 @@ class App extends React.Component {
   }
 
   fetchJsonApiPost(destination, url, postData) {
-    fetch(url, {
+    this.fetchWithCSRFToken(url, {
       method: 'POST',
       credentials: 'same-origin',
       headers,
@@ -102,7 +121,7 @@ class App extends React.Component {
   }
 
   fetchJsonApiPatch(destination, url, update) {
-    fetch(url, {
+    this.fetchWithCSRFToken(url, {
       method: 'PATCH',
       credentials: 'same-origin',
       headers,
@@ -126,7 +145,7 @@ class App extends React.Component {
   }
 
   fetchJsonApiDelete(destination, url) {
-    fetch(url, {
+    this.fetchWithCSRFToken(url, {
       method: 'DELETE',
       credentials: 'same-origin',
       headers
@@ -292,7 +311,7 @@ class NodeEdit extends React.Component {
           rows="4"
           cols="30"
           ref={(input) => this.input = input}
-          value={this.state.input.body}
+          defaultValue={this.state.input.body}
           style={styles.formItem}
         />
 
