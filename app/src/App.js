@@ -50,7 +50,7 @@ class App extends Component {
 
   componentWillMount() {
     // If there is an existing token, but it's expired, update it.
-    if (this.state.token !== null && this.state.token.expirationDate > Date.now()) {
+    if (this.state.token !== null && this.state.token.expirationDate > Math.floor(Date.now() / 1000)) {
       localStorage.clear();
       this.getRefreshToken();
     }
@@ -113,8 +113,9 @@ class App extends Component {
         }
 
         let token = Object.assign({}, data); // Make a copy of data object.
-        token.date = Date.now();
-        token.expirationDate = Date.now() + token.expires_in;
+        // Convert the date to a UNIX timestamp.
+        token.date = Math.floor(Date.now() / 1000);
+        token.expirationDate = token.date + token.expires_in;
         this.setState({'token': token});
         this.setState({'appUserLoggedIn': true});
         localStorage.setItem('token', JSON.stringify(token));
@@ -147,8 +148,12 @@ class App extends Component {
         })
         .then((data) => {
           console.log('refresh token', data);
-          this.setState({'token': data});
-          localStorage.setItem('token', JSON.stringify(data));
+          let token = Object.assign({}, data);
+          // Convert the date to a UNIX timestamp.
+          token.date = Math.floor(Date.now() / 1000);
+          token.expirationDate = token.date + token.expires_in;
+          this.setState({'token': token});
+          localStorage.setItem('token', JSON.stringify(token));
         })
         .catch(err => console.log('API got an error', err));
     }
