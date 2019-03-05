@@ -69,13 +69,18 @@ class App extends React.Component {
   // Use this in place of fetch() for any write/update operations like POST,
   // PATCH, and DELETE.
   fetchWithCSRFToken(url, options) {
-    return fetch(`${config.base}/session/token?_format=json`)
-      .then(response => response.text())
-      .then((csrfToken) => {
-        options.headers.append('X-CSRF-Token', csrfToken);
-        return fetch(url, options);
-      })
-      .catch(err => console.log('Unable to obtain CSRF token:', err));
+    if (!options.headers.get('X-CSRF-Token')) {
+      return fetch(`${config.base}/session/token?_format=json`)
+        .then(response => response.text())
+        .then((csrfToken) => {
+          options.headers.append('X-CSRF-Token', csrfToken);
+          return fetch(url, options);
+        })
+        .catch(err => console.log('Unable to obtain CSRF token:', err));
+    }
+    else {
+      return fetch(url, options);
+    }
   }
 
   // Perform GET request. If successful, update state.
