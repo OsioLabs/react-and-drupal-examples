@@ -349,7 +349,7 @@ class NodeItem extends React.Component {
       <div id={this.props.id}>
         <div style={style.content}>
           <h2>{this.props.attributes.title}</h2>
-          <div dangerouslySetInnerHTML={{__html: this.props.attributes.body.value}} />
+          {this.props.attributes.body && <div dangerouslySetInnerHTML={{__html: this.props.attributes.body.value}} />}
         </div>
         <hr />
         <div style={style.buttons}>
