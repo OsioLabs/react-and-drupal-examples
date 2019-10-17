@@ -45,7 +45,7 @@ class App extends Component {
     this.refreshOauthToken = this.refreshOauthToken.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // If there is an existing token, but it's expired, update it.
     if (this.state.token !== null && this.state.token.expirationDate > Math.floor(Date.now() / 1000)) {
       localStorage.clear();
