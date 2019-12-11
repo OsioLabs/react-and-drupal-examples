@@ -79,10 +79,18 @@ class ShowNodeContent extends React.Component {
 }
 
 // Create a new component that displays the content of the node.
+// We add some additional CSS styling here to help make it apparent which part
+// of the page our React application is rendering.
 class NodeContent extends React.Component {
   render() {
     return (
-      <div>
+      <div
+        style={{
+          border: '2px dashed purple',
+          margin: '2em',
+          padding: '2em',
+        }}
+      >
         <h1>{this.props.title}</h1>
         <ShowNodeContent {...this.props} />
       </div>
